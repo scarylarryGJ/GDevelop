@@ -1548,10 +1548,12 @@ TEST_CASE("WholeProjectRefactorer", "[common]") {
 
       // Create the objects container for the events function
       gd::ObjectsContainer parametersObjectsContainer;
+      gd::VariablesContainer parameterVariablesContainer(
+          gd::VariablesContainer::SourceType::Parameters);
       auto projectScopedContainers = gd::ProjectScopedContainers::
           MakeNewProjectScopedContainersForFreeEventsFunction(
               project, eventsExtension, eventsFunction,
-              parametersObjectsContainer);
+              parametersObjectsContainer, parameterVariablesContainer);
 
       // Trigger the refactoring after the renaming of an object
       gd::WholeProjectRefactorer::ObjectOrGroupRenamedInEventsFunction(
@@ -1576,10 +1578,12 @@ TEST_CASE("WholeProjectRefactorer", "[common]") {
 
       // Create the objects container for the events function
       gd::ObjectsContainer parametersObjectsContainer;
+      gd::VariablesContainer parameterVariablesContainer(
+          gd::VariablesContainer::SourceType::Parameters);
       auto projectScopedContainers = gd::ProjectScopedContainers::
           MakeNewProjectScopedContainersForFreeEventsFunction(
               project, eventsExtension, eventsFunction,
-              parametersObjectsContainer);
+              parametersObjectsContainer, parameterVariablesContainer);
 
       // Simulate a variable in ObjectWithMyBehavior, even if this is not
       // supported by the editor.
