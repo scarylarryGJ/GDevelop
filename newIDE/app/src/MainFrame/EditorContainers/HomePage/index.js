@@ -515,6 +515,10 @@ export const HomePage = React.memo<Props>(
                   {activeTab === 'manage' && (
                     <ManageSection
                       project={project}
+                      currentFileMetadata={fileMetadata}
+                      onOpenProject={onOpenRecentFile}
+                      storageProviders={storageProviders}
+                      closeProject={closeProject}
                       games={games}
                       onRefreshGames={fetchGames}
                       onGameUpdated={onGameUpdated}
