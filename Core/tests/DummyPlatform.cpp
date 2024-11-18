@@ -264,40 +264,80 @@ void SetupProjectWithDummyPlatform(gd::Project& project,
       "BuiltinVariables", "My testing extension for variables", "", "", "");
 
   extension
+      ->AddCondition("NumberVariable",
+                    "Variable value",
+                    "Compare the number value of a variable.",
+                    "The variable _PARAM0_",
+                    "",
+                    "",
+                    "")
+      .AddParameter("variableOrPropertyOrParameter", _("Variable"))
+      .UseStandardRelationalOperatorParameters(
+          "number", gd::ParameterOptions::MakeNewOptions());
+
+  extension
+      ->AddCondition("StringVariable",
+                    "Variable value",
+                    "Compare the text (string) of a variable.",
+                    "The variable _PARAM0_",
+                    "",
+                    "",
+                    "")
+      .AddParameter("variableOrPropertyOrParameter", _("Variable"))
+      .UseStandardRelationalOperatorParameters(
+          "string", gd::ParameterOptions::MakeNewOptions());
+
+  extension
+      ->AddCondition(
+          "BooleanVariable",
+          "Variable value",
+          "Compare the boolean value of a variable.",
+          "The variable _PARAM0_ is _PARAM1_",
+          "",
+          "",
+          "")
+      .AddParameter("variableOrPropertyOrParameter", _("Variable"))
+      .AddParameter("trueorfalse", _("Check if the value is"))
+      .SetDefaultValue("true")
+      // This parameter allows to keep the operand expression
+      // when the editor switch between variable instructions.
+      .AddCodeOnlyParameter("trueorfalse", "");
+
+  extension
       ->AddAction("SetNumberVariable",
-                  "Do something with number variables",
-                  "This does something with variables",
-                  "Do something with variables",
+                  "Change variable value",
+                  "Modify the number value of a variable.",
+                  "the variable _PARAM0_",
                   "",
                   "",
                   "")
-      .AddParameter("variable", "Variable")
+      .AddParameter("variableOrProperty", "Variable")
       .AddParameter("operator", "Operator", "number")
       .AddParameter("number", "Value")
       .SetFunctionName("setNumberVariable");
 
   extension
       ->AddAction("SetStringVariable",
-                  "Do something with string variables",
-                  "This does something with variables",
-                  "Do something with variables",
+                  "Change text variable",
+                  "Modify the text (string) of a variable.",
+                  "the variable _PARAM0_",
                   "",
                   "",
                   "")
-      .AddParameter("variable", "Variable")
+      .AddParameter("variableOrProperty", "Variable")
       .AddParameter("operator", "Operator", "string")
       .AddParameter("string", "Value")
       .SetFunctionName("setStringVariable");
 
   extension
       ->AddAction("SetBooleanVariable",
-                  "Do something with boolean variables",
-                  "This does something with variables",
-                  "Do something with variables",
+                  "Change boolean variable",
+                  "Modify the boolean value of a variable.",
+                  "Change the variable _PARAM0_: _PARAM1_",
                   "",
                   "",
                   "")
-      .AddParameter("variable", "Variable")
+      .AddParameter("variableOrProperty", "Variable")
       .AddParameter("operator", "Operator", "boolean")
       // This parameter allows to keep the operand expression
       // when the editor switch between variable instructions.
@@ -357,6 +397,17 @@ void SetupProjectWithDummyPlatform(gd::Project& project,
       .AddParameter("imageResource", "Parameter 2 (an image resource)")
       .AddParameter("soundfile", "Parameter 3 (an audio resource)")
       .SetFunctionName("doSomethingWithResources");
+
+  extension
+      ->AddAction("DoSomethingWithAnyVariable",
+                  "Do something with variables",
+                  "This does something with variables",
+                  "Do something with variables please",
+                  "",
+                  "",
+                  "")
+      .AddParameter("variable", "Any variable")
+      .SetFunctionName("doSomethingWithAnyVariable");
 
   extension
       ->AddAction("DoSomethingWithLegacyPreScopedVariables",
